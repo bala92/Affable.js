@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -15,8 +15,10 @@ document.head.appendChild(imported);
 //geolocateAtt.value = "geolocate()";
 //geolocate.setAttributeNode(geolocateAtt);
 
+
+
 function initAutocomplete() {
-    
+
     // Create the autocomplete object, restricting the search to geographical
     // location types.
     autocomplete = new google.maps.places.Autocomplete(
@@ -27,8 +29,22 @@ function initAutocomplete() {
     // fields in the form.
     autocomplete.addListener('place_changed', fillInAddress);
 }
+
 function fillInAddress() {
 }
+
+// When the user selects a city, get the place details for the city and
+      // zoom the map in on the city.
+      // function onPlaceChanged() {
+      //   var place = autocomplete.getPlace();
+      //   if (place.geometry) {
+      //     map.panTo(place.geometry.location);
+      //     map.setZoom(15);
+      //     search();
+      //   } else {
+      //     document.getElementById('autocomplete').placeholder = 'Enter a city';
+      //   }
+      // }
 
 // Bias the autocomplete object to the user's geographical location,
 // as supplied by the browser's 'navigator.geolocation' object.
@@ -42,7 +58,18 @@ function getLatLong()
         var myLatLng = results[0].geometry.location;
         var myLat = results[0].geometry.location.lat();
         var myLng = results[0].geometry.location.lng();
-        initMap(myLat, myLng);
+        var dict = new Object();
+        var arr = [];
+        var a = {name:"Balaji Restra"};
+        arr.push(a);
+        arr.push(a);
+        dict["restaurant"] = arr;
+        dict["school"] = arr;
+        dict["university"] = arr;
+        dict["hospital"] = arr;
+        dict["grocery"] = arr;
+        locationScore(dict);
+        //initMap(myLat, myLng);
 
       } else {
         alert("Geocode was not successful for the following reason: " + status);
@@ -96,4 +123,37 @@ function callback(results, status) {
 
 function createMarker(place) {
     alert(place.name)
+}
+
+var score;
+
+function locationScore(location) {
+var numberOfRestaurants = location["restaurant"].length;
+var numberOfHospital = location["hospital"].length;
+var numberOfUniversity = location["university"].length;
+var numberOfSchools = location["university"].length;
+var numberOfGrocery = location["university"].length;
+score = new Object();
+appendScore(numberOfRestaurants,"restaurant");
+appendScore(numberOfHospital,"hospital");
+appendScore(numberOfUniversity,"university");
+appendScore(numberOfSchools, "school");
+appendScore(numberOfGrocery, "grocery");
+
+var totalScore = score["restaurant"]+score["hospital"]+score["university"]+score["school"]+score["grocery"];
+totalScore = (totalScore * 100)/75;
+}
+
+function appendScore(number,scoreFor)
+{
+  if (number<5)
+  score[scoreFor] = 5;
+  else if (number > 5 && number < 10)
+  score[scoreFor] = 10;
+  else {
+  score[scoreFor] = 15;
+  }
+
+
+
 }
