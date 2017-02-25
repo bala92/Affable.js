@@ -46,7 +46,6 @@ function fillInAddress() {
 // Bias the autocomplete object to the user's geographical location,
 // as supplied by the browser's 'navigator.geolocation' object.
 
-©©©©
 function getLatLong()
 {
 
