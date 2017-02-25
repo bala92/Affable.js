@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var map;
-var infowindow;
+var map ;
+var dict;
 
 var imported = document.createElement('script');
 imported.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDSS2NJh-rl5-KWzRX4ypoi84Shvw6tUZE&libraries=places&callback=initAutocomplete';
@@ -16,7 +16,7 @@ document.head.appendChild(imported);
 //geolocate.setAttributeNode(geolocateAtt);
 
 function initAutocomplete() {
-    
+     dict = new Object();
     // Create the autocomplete object, restricting the search to geographical
     // location types.
     autocomplete = new google.maps.places.Autocomplete(
@@ -42,7 +42,11 @@ function getLatLong()
         var myLatLng = results[0].geometry.location;
         var myLat = results[0].geometry.location.lat();
         var myLng = results[0].geometry.location.lng();
-        initMap(myLat, myLng);
+        initMap(myLat, myLng , 500, 'restaurant');
+        initMap(myLat, myLng , 500, 'school');
+        initMap(myLat, myLng , 500, 'hospital');
+        initMap(myLat, myLng , 500, 'University');
+        alert(dict['restaurant']);
 
       } else {
         alert("Geocode was not successful for the following reason: " + status);
@@ -68,7 +72,7 @@ function getLatLong()
 //
 
 
-function initMap(lat, lng) {
+function initMap(lat, lng , radius , query) {
     var pyrmont = {lat: lat, lng: lng};
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -78,22 +82,25 @@ function initMap(lat, lng) {
 
     var request = {
         location: pyrmont,
-        radius: '500',
-        query: 'restaurant'
+        radius: radius,
+        query: query
     };
-    infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, callback);
+    var myList = [];
+    myList = service.textSearch(request, callback);
+    dict[query] = myList;
+
 }
 
 function callback(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
+        var myList = [];
         for (var i = 0; i < results.length; i++) {
-             createMarker(results[i]);
+            var myObject = {name:results[i].name, rating:results[i].rating};
+            myList.push(myObject);
+
         }
+        return myList;
     }
 }
 
-function createMarker(place) {
-    alert(place.name)
-}
