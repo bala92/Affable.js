@@ -3,17 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var map;
+var infowindow;
 
 var imported = document.createElement('script');
 imported.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDSS2NJh-rl5-KWzRX4ypoi84Shvw6tUZE&libraries=places&callback=initAutocomplete';
 document.head.appendChild(imported);
 
-var geolocate = document.getElementsById("autocomplete")[0];   
-var geolocateAtt = document.createAttribute("onFocus");       
-att.value = "geolocate()";                           
+var geolocate = document.getElementById("autocomplete");
+var geolocateAtt = document.createAttribute("onFocus");
+geolocateAtt.value = "geolocate()";
 geolocate.setAttributeNode(geolocateAtt);      
 
 function initAutocomplete() {
+    initMap();
     // Create the autocomplete object, restricting the search to geographical
     // location types.
     autocomplete = new google.maps.places.Autocomplete(
@@ -61,4 +64,35 @@ function fillInAddress() {
           });
         }
       }
-      
+
+
+
+function initMap() {
+    var pyrmont = {lat: -33.867, lng: 151.195};
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: pyrmont,
+        zoom: 15
+    });
+
+    var request = {
+        location: pyrmont,
+        radius: '500',
+        query: 'restaurant'
+    };
+    infowindow = new google.maps.InfoWindow();
+    var service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, callback);
+}
+
+function callback(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+           // createMarker(results[i]);
+        }
+    }
+}
+
+function createMarker(place) {
+    alert(place.name)
+}
