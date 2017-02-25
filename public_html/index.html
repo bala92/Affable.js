@@ -14,8 +14,9 @@ and open the template in the editor.
     </head>
     <body>
         <div>
-            <input id="autocomplete" placeholder="Enter your address" type="text">
-            <button id="go" class="go" onclick="getLatLong()">Go Search</button>
+            <input id="autocomplete" placeholder="Enter your address" onblur="getLatLong()" type="text">
+<!--            <button id="go" class="go" onclick="getLatLong()">Go Search</button>-->
+            <button id="generate" class="generate" onclick="generate()">Generate</button>
         </div>
         <div id="map"></div>
         <!-- Replace the value of the key parameter with your own API key. -->
