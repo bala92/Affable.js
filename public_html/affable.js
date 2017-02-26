@@ -9,7 +9,7 @@ var dict = {};
 var score;
 var airportScore = 0;
 var imported = document.createElement('script');
-imported.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDOWLpSeFnNSsjrsKqb0CQ6oNRsmFCUVqg&libraries=places&callback=initAutocomplete';
+imported.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCG1ehul1kZTGUDnXh0kI1-pxr_fJ-OKw8&libraries=places&callback=initAutocomplete';
 document.head.appendChild(imported);
 
 
@@ -36,7 +36,7 @@ function getLatLong()
 {
 
     var add = document.getElementById('autocomplete').value;
-    add = "Yonge-Dundas Square, Dundas Street East, Toronto, ON, Canada";
+    // add = "Yonge-Dundas Square, Dundas Street East, Toronto, ON, Canada";
     var geo = new google.maps.Geocoder;
     geo.geocode({'address': add}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -126,16 +126,29 @@ function locationScore(dictObject) {
     getScore(dictObject,"hospital");
     getScore(dictObject, "grocery");
     var totalScore = 0;
-    if(score["restaurant"] == 0 && score["hospital"] == 0 && score["grocery"] == 0 && score["school"] == 0 && airportScore == 0)
-     totalScore = (score["restaurant"]* 0.20) + (score["school"]* 0.20) + (score["hospital"]* 0.20) + (score["grocery"]*0.20) + (airportScore * 0.20);
-    else
-     totalScore = (score["restaurant"]* parseInt(document.getElementById("restaurantValue").innerHTML)*0.01) + (score["school"]* parseInt(document.getElementById("schoolValue").innerHTML)*0.01) + (score["hospital"]* parseInt(document.getElementById("hospitalValue").innerHTML)*0.01) + (score["grocery"]*parseInt(document.getElementById("groceryValue").innerHTML)*0.01) + (airportScore *parseInt(document.getElementById("airportValue").innerHTML)*0.01);
-    //totalScore = (parseInt(document.getElementById("restaurantValue").innerHTML)) + (parseInt(document.getElementById("schoolValue").innerHTML)) + (parseInt(document.getElementById("hospitalValue").innerHTML)) + (parseInt(document.getElementById("groceryValue").innerHTML)) + (document.getElementById("airportValue").innerHTML);
-    console.log("score for Airport " + airportScore);
-    document.getElementById("airportValue").innerHTML = parseInt(airportScore);
-    document.getElementById("upairport").disabled = true;
-    document.getElementById("downairport").disabled = true;
+    if(document.getElementById("restaurantValue").innerHTML == 0
+    && document.getElementById("schoolValue").innerHTML == 0
+    && document.getElementById("hospitalValue").innerHTML == 0
+    && document.getElementById("groceryValue").innerHTML == 0
+    && document.getElementById("crimeValue").innerHTML == 0
+    && document.getElementById("airportValue").innerHTML == 0) {
+        totalScore = (score["restaurant"] * 0.20) + (score["school"] * 0.20) + (score["hospital"] * 0.20) + (score["grocery"] * 0.20) + (airportScore * 0.20);
+    }
+    else {
+        totalScore = (score["restaurant"] * parseInt(document.getElementById("restaurantValue").innerHTML)*0.01) +
+            (score["school"] * parseInt(document.getElementById("schoolValue").innerHTML)*0.01) +
+            (score["hospital"] * parseInt(document.getElementById("hospitalValue").innerHTML)*0.01) +
+            (score["grocery"] * parseInt(document.getElementById("groceryValue").innerHTML)*0.01) +
+            (airportScore * parseInt(document.getElementById("airportValue").innerHTML)*0.01);
+    }
 
+    console.log("score for Airport " + airportScore);
+    document.getElementById("restaurantScore").innerHTML = parseInt(score["restaurant"]);
+    document.getElementById("schoolScore").innerHTML = parseInt(score["school"]);
+    document.getElementById("hospitalScore").innerHTML = parseInt(score["hospital"]);
+    document.getElementById("groceryScore").innerHTML = parseInt(score["grocery"]);
+    document.getElementById("airportScore").innerHTML = parseInt(airportScore);
+    document.getElementById("res").innerHTML = "Overall livability Score: " + parseInt(totalScore);
     console.log("Final Score" + totalScore);
 }
 
@@ -157,36 +170,24 @@ function getScore(dictObject,scoreFor)
    {
        console.log("Value for Avg" + avg);
        score[scoreFor] = (((total / 20 )* 0.6) + (((avg/(5)) * 0.4))) * 100 ;
-       document.getElementById("restaurantValue").innerHTML = parseInt(score[scoreFor]);
-       document.getElementById("uprestaurant").disabled = true;
-       document.getElementById("downrestaurant").disabled = true;
    }
     else if(scoreFor == "school")
     {
         if(total > 5)
             total = 5;
         score[scoreFor] = (((total / 5 )* 0.6) + (((avg/(5)) * 0.4))) * 100 ;
-        document.getElementById("schoolValue").innerHTML = parseInt(score[scoreFor]);
-        document.getElementById("upschool").disabled = true;
-        document.getElementById("downschool").disabled = true;
     }
     else if(scoreFor == "hospital")
     {
         if(total > 5)
             total = 5;
         score[scoreFor] = (((total / 5 )* 0.6) + (((avg/(5)) * 0.4))) * 100;
-        document.getElementById("hospitalValue").innerHTML = parseInt(score[scoreFor]);
-        document.getElementById("uphospital").disabled = true;
-        document.getElementById("downhospital").disabled = true;
     }
     else if(scoreFor == "grocery")
     {
         if(total > 5)
             total = 5;
         score[scoreFor] = (((total / 5 )* 0.6) + (((avg/(5)) * 0.4))) * 100  ;
-        document.getElementById("groceryValue").innerHTML = parseInt(score[scoreFor]);
-        document.getElementById("upgrocery").disabled = true;
-        document.getElementById("downgrocery").disabled = true;
     }
     console.log("Score for " + scoreFor +  score[scoreFor]);
 
