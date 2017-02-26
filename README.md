@@ -66,9 +66,9 @@ https://developers.google.com/places/web-service/search<br/>
 https://sandbox.amadeus.com/travel-innovation-sandbox/apis/get/airports/nearest-relevant
 
 
-[Contributor Guide](./CONTRIBUTING.md)<br/>
+##[Contributor Guide](./CONTRIBUTING.md)<br/>
 
 
 
-License :<br/>
+##License :<br/>
 Team selected to use MIT License to Open source.<br/>
