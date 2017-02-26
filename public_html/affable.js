@@ -14,7 +14,7 @@ document.head.appendChild(imported);
 
 
 
-
+// This function is called everytime when autocomplete search is done in textbox.
 function initAutocomplete() {
 
     // Create the autocomplete object, restricting the search to geographical
@@ -31,7 +31,7 @@ function initAutocomplete() {
 function fillInAddress() {
 }
 
-
+// This function should be called onBlur() event of the searchTextBox.
 function getLatLong()
 {
 
@@ -57,7 +57,7 @@ function getLatLong()
 
 
 }
-
+// This funtion takes in Two cordinate point and return distance between them in Miles.
 function distance(lat1, lon1, lat2, lon2) {
     var radlat1 = Math.PI * lat1/180
     var radlat2 = Math.PI * lat2/180
@@ -70,12 +70,20 @@ function distance(lat1, lon1, lat2, lon2) {
     return dist
 }
 
+// This function is called when the search button in query box is pressed.
 function generate1() {
        console.log(dict);
       locationScore(dict);
 
 
 }
+
+/*This function is required for calling Places api for google maps
+//with different query parameters.
+Input Parameters: lat : latitude of the searched places
+                  lng : longitude of the searched places
+                  radius: Radius priority
+                  query: Search Term */
 
 function initMap(lat, lng, radius, query) {
     console.log("Inside Init Map");
@@ -151,10 +159,29 @@ function locationScore(dictObject) {
     document.getElementById("res").innerHTML = "Overall livability Score: " + parseInt(totalScore);
     console.log("Final Score" + totalScore);
 }
+/* Return the Dict Object
+//eg: {"restaurant" : [{name: "Jimmy Jones" , rating: 4.3} , {name: "Panera Bread" , rating: 4.1}],
+       "school" : [{name: "Middle High School" , rating: 4.3} , {name: "West Devon School" , rating: 4.1}],
+       "hospital" : [{name: "UIHC" , rating: 4.6} , {name: "Health Care" , rating: 4.1}]
+       "grocery" : [{name: "Walmart" , rating: 4.3} , {name: "Bread Garden" , rating: 4.1}]*/
+function getDictionaryObject()
+{
+  try {
+    return dict;
+  } catch (e) {
+    console.log("dictionary is empty");
+  } finally {
 
+  }
+
+}
+
+/* Return the score for the map key word.
+//eg: getScore(dict , "restaurant"); return score for restaurant category.
+*/
 function getScore(dictObject,scoreFor)
 {
-    console.log();
+    var result = 0;
     var total = dictObject[scoreFor].length;
     var myarr = dictObject[scoreFor];
     var sum = 0;
@@ -189,22 +216,13 @@ function getScore(dictObject,scoreFor)
             total = 5;
         score[scoreFor] = (((total / 5 )* 0.6) + (((avg/(5)) * 0.4))) * 100  ;
     }
+    result = score[scoreFor];
+    return result;
     console.log("Score for " + scoreFor +  score[scoreFor]);
 
 }
 
-function distance(lat1, lon1, lat2, lon2) {
-    var radlat1 = Math.PI * lat1/180
-    var radlat2 = Math.PI * lat2/180
-    var theta = lon1-lon2
-    var radtheta = Math.PI * theta/180
-    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-    dist = Math.acos(dist)
-    dist = dist * 180/Math.PI
-    dist = dist * 60 * 1.1515
-    return dist
-  }
-
+//Return the score of Airport Category for the Lat and longitude of location passed by the user.
 function getAirports(myLat , myLng)
 {
 
