@@ -28,8 +28,8 @@ Below are some of the cool features support by Affable.js library
 
 Below are the steps for using - <br/>1) Include ```html<script src="public_html/affable.js"" type="text/javascript">/"``` 2) There should be a div element -
 ```html
-/"<div id="map" hidden="hidden">
-</div>/"
+<div id="map" hidden="hidden">
+</div>
 ```
 <br/>
  3) Include below div tags for getting the search bar - <br/>
