@@ -26,50 +26,49 @@ Below are some of the cool features support by Affable.js library
 
 ## USAGE
 
-Below are the steps for using - <br/>1) Include /"<script src="public_html/affable.js"" type="text/javascript">/" 2) There should be a div element -
-
+Below are the steps for using - <br/>1) Include ```html<script src="public_html/affable.js"" type="text/javascript">/"``` 2) There should be a div element -
+```html
 /"<div id="map" hidden="hidden">
 </div>/"
+```
+<br/>
+ 3) Include below div tags for getting the search bar - <br/>
 
- 3) Include below div tags for getting the search bar -
 
-
-
-"
-
+```html
 <div style="width:800px; margin:0 auto;" id="form-container">
   <form class="form-inline mt-2 mt-md-0"><input class="form-control mr-sm-2 expand" type="text" id="autocomplete" placeholder="Enter your address" onblur="getLatLong()" style="width:500px;">
         <input class="btn btn-success my-2 my-sm-0" type="button" id="generate" onclick="generate1()" value="Search"></form>
-</div>"
+</div>
+```
+<br/>
+
+4) Refer Index.html for example client usage.<br/>
+
+[USAGE EXAMPLE] ---------------------------------------------------<br/>
+
+Api provides below function for usage -<br/>
+
+* function getDictionaryObject() Explanation - Return the DictObject Object eg: {"restaurant" : [{name: "Jimmy Jones" , rating: 4.3} , {name: "Panera Bread" , rating: 4.1}], "school" : [{name: "Middle High School" , rating: 4.3} , {name: "West Devon School" , rating: 4.1}], "hospital" : [{name: "UIHC" , rating: 4.6} , {name: "Health Care" , rating: 4.1}] "grocery" : [{name: "Walmart" , rating: 4.3} , {name: "Bread Garden" , rating: 4.1}]
+
+* function getScore(dictObject,scoreFor) - Explanation - Return the score for the map key word. eg: getScore(dict , "restaurant"); return score for restaurant category.
+
+* function distance(lat1, lon1, lat2, lon2) - Explanation - This funtion takes in Two cordinate point and return distance between them in Miles.
+
+BUILD/INSTALLATION INSTRUCTIONS -------------------------<br/>
+
+Include the Js file in the application for usage.<br/>
 
 
 
-4) Refer Index.html for example client usage.
+OTHER SOURCES OF DOCUMENTATION ------------------------<br/>
+[Named Link]https://developers.google.com/places/web-service/search
+[Named Link]https://sandbox.amadeus.com/travel-innovation-sandbox/apis/get/airports/nearest-relevant
 
-[USAGE EXAMPLE] ---------------------------------------------------
 
-Api provides below function for usage -
-
-1) function getDictionaryObject() Explanation - Return the DictObject Object eg: {"restaurant" : [{name: "Jimmy Jones" , rating: 4.3} , {name: "Panera Bread" , rating: 4.1}], "school" : [{name: "Middle High School" , rating: 4.3} , {name: "West Devon School" , rating: 4.1}], "hospital" : [{name: "UIHC" , rating: 4.6} , {name: "Health Care" , rating: 4.1}] "grocery" : [{name: "Walmart" , rating: 4.3} , {name: "Bread Garden" , rating: 4.1}]
-
-2) function getScore(dictObject,scoreFor) - Explanation - Return the score for the map key word. eg: getScore(dict , "restaurant"); return score for restaurant category.
-
-3) function distance(lat1, lon1, lat2, lon2) - Explanation - This funtion takes in Two cordinate point and return distance between them in Miles.
-
-BUILD/INSTALLATION INSTRUCTIONS -------------------------
-
-Include the Js file in the application for usage.
+Contributor Guide [LINK TO CONTRIBUTING.md]<br/>
 
 
 
-OTHER SOURCES OF DOCUMENTATION ------------------------
-https://developers.google.com/places/web-service/search
-https://sandbox.amadeus.com/travel-innovation-sandbox/apis/get/airports/nearest-relevant
-
-
-Contributor Guide [LINK TO CONTRIBUTING.md]
-
-
-
-License :
-Team selected to use MIT License to Open source.
+License :<br/>
+Team selected to use MIT License to Open source.<br/>
