@@ -7,6 +7,7 @@ var map;
 var index = 0;
 var dict = {};
 var score;
+var airportScore = 0;
 var imported = document.createElement('script');
 imported.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDOWLpSeFnNSsjrsKqb0CQ6oNRsmFCUVqg&libraries=places&callback=initAutocomplete';
 document.head.appendChild(imported);
@@ -45,6 +46,8 @@ function getLatLong()
             initMap(myLat, myLng, 500, 'elementary school or high school');
             initMap(myLat, myLng, 500, 'hospital');
             initMap(myLat, myLng, 500, 'grocery store');
+            airportScore =  getAirports(myLat , myLng);
+
 
             index =0;
         } else {
@@ -122,8 +125,18 @@ function locationScore(dictObject) {
     getScore(dictObject,"school");
     getScore(dictObject,"hospital");
     getScore(dictObject, "grocery");
-    var totalScore = (score["restaurant"]* 0.20) + (score["school"]* 0.30) + (score["hospital"]* 0.30) + (score["grocery"]*0.20);
-    console.log("score is " + totalScore);
+    var totalScore = 0;
+    if(score["restaurant"] == 0 && score["hospital"] == 0 && score["grocery"] == 0 && score["school"] == 0 && airportScore == 0)
+     totalScore = (score["restaurant"]* 0.20) + (score["school"]* 0.20) + (score["hospital"]* 0.20) + (score["grocery"]*0.20) + (airportScore * 0.20);
+    else
+     totalScore = (score["restaurant"]* parseInt(document.getElementById("restaurantValue").innerHTML)*0.01) + (score["school"]* parseInt(document.getElementById("schoolValue").innerHTML)*0.01) + (score["hospital"]* parseInt(document.getElementById("hospitalValue").innerHTML)*0.01) + (score["grocery"]*parseInt(document.getElementById("groceryValue").innerHTML)*0.01) + (airportScore *parseInt(document.getElementById("airportValue").innerHTML)*0.01);
+    //totalScore = (parseInt(document.getElementById("restaurantValue").innerHTML)) + (parseInt(document.getElementById("schoolValue").innerHTML)) + (parseInt(document.getElementById("hospitalValue").innerHTML)) + (parseInt(document.getElementById("groceryValue").innerHTML)) + (document.getElementById("airportValue").innerHTML);
+    console.log("score for Airport " + airportScore);
+    document.getElementById("airportValue").innerHTML = parseInt(airportScore);
+    document.getElementById("upairport").disabled = true;
+    document.getElementById("downairport").disabled = true;
+
+    console.log("Final Score" + totalScore);
 }
 
 function getScore(dictObject,scoreFor)
@@ -144,24 +157,36 @@ function getScore(dictObject,scoreFor)
    {
        console.log("Value for Avg" + avg);
        score[scoreFor] = (((total / 20 )* 0.6) + (((avg/(5)) * 0.4))) * 100 ;
+       document.getElementById("restaurantValue").innerHTML = parseInt(score[scoreFor]);
+       document.getElementById("uprestaurant").disabled = true;
+       document.getElementById("downrestaurant").disabled = true;
    }
     else if(scoreFor == "school")
     {
         if(total > 5)
             total = 5;
         score[scoreFor] = (((total / 5 )* 0.6) + (((avg/(5)) * 0.4))) * 100 ;
+        document.getElementById("schoolValue").innerHTML = parseInt(score[scoreFor]);
+        document.getElementById("upschool").disabled = true;
+        document.getElementById("downschool").disabled = true;
     }
     else if(scoreFor == "hospital")
     {
         if(total > 5)
             total = 5;
         score[scoreFor] = (((total / 5 )* 0.6) + (((avg/(5)) * 0.4))) * 100;
+        document.getElementById("hospitalValue").innerHTML = parseInt(score[scoreFor]);
+        document.getElementById("uphospital").disabled = true;
+        document.getElementById("downhospital").disabled = true;
     }
     else if(scoreFor == "grocery")
     {
         if(total > 5)
             total = 5;
         score[scoreFor] = (((total / 5 )* 0.6) + (((avg/(5)) * 0.4))) * 100  ;
+        document.getElementById("groceryValue").innerHTML = parseInt(score[scoreFor]);
+        document.getElementById("upgrocery").disabled = true;
+        document.getElementById("downgrocery").disabled = true;
     }
     console.log("Score for " + scoreFor +  score[scoreFor]);
 
@@ -178,3 +203,28 @@ function distance(lat1, lon1, lat2, lon2) {
     dist = dist * 60 * 1.1515
     return dist
   }
+
+function getAirports(myLat , myLng)
+{
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "http://api.sandbox.amadeus.com/v1.2/airports/nearest-relevant?latitude="+myLat+"&longitude="+myLng+"&apikey=2oxAh56O3TrgZdG50AS8Ftkv2b9sGAT7", false);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
+    var response = JSON.parse(xhttp.responseText);
+    var score = 0;
+    var distance = response[0].distance;
+    if(distance < 10)
+        score = 100;
+    else if(distance <20)
+        score = 90;
+    else if(distance < 40)
+        score = 80;
+    else if(distance < 80)
+        score = 60;
+    else
+        score = 40;
+
+    return score;
+
+}
