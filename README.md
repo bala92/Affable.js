@@ -26,7 +26,7 @@ Below are some of the cool features support by Affable.js library
 
 ## USAGE
 
-Below are the steps for using - <br/>1) Include ```html<script src="public_html/affable.js"" type="text/javascript">/"``` 2) There should be a div element -
+Below are the steps for using - <br/>1) Include ```html<script src="public_html/affable.js"" type="text/javascript">/"``` <br/>2) There should be a div element -
 ```html
 <div id="map" hidden="hidden">
 </div>
