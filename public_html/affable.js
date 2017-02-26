@@ -8,7 +8,7 @@ var index = 0;
 var dict = {};
 
 var imported = document.createElement('script');
-imported.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBLK50uGqoY2xNWWHGzq_CPAGZt08OGax0&libraries=places&callback=initAutocomplete';
+imported.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBhaBtaWSp_OfBif9kFtKlA_6iWXIs32G8&libraries=places&callback=initAutocomplete';
 document.head.appendChild(imported);
 
 
@@ -57,9 +57,9 @@ function getLatLong()
             var myLat = results[0].geometry.location.lat();
             var myLng = results[0].geometry.location.lng();
             initMap(myLat, myLng, 500, 'restaurant');
-            initMap(myLat, myLng, 500, 'elementary school or high school');
-            initMap(myLat, myLng, 500, 'hospital');
-            initMap(myLat, myLng, 500, 'grocery store');
+            // initMap(myLat, myLng, 500, 'elementary school or high school');
+            // initMap(myLat, myLng, 500, 'hospital');
+            // initMap(myLat, myLng, 500, 'grocery store');
             index =0;
         } else {
             alert("Geocode was not successful for the following reason: " + status);
@@ -116,7 +116,11 @@ function callback(results, status) {
         var myList = [];
         for (var i = 0; i < results.length; i++) {
             var myObject = {name: results[i].name, rating: results[i].rating};
+            var latitude = results[i].geometry;
+            console.log(latitude);
+            // break;
             myList.push(myObject);
+
         }
         var indexName;
         if(index == 0){indexName = "restaurant";}
@@ -160,7 +164,16 @@ function appendScore(number,scoreFor)
   else {
   score[scoreFor] = 15;
   }
-
-
-
 }
+
+function distance(lat1, lon1, lat2, lon2) {
+    var radlat1 = Math.PI * lat1/180
+    var radlat2 = Math.PI * lat2/180
+    var theta = lon1-lon2
+    var radtheta = Math.PI * theta/180
+    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    dist = Math.acos(dist)
+    dist = dist * 180/Math.PI
+    dist = dist * 60 * 1.1515
+    return dist
+  }

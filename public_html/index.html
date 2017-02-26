@@ -5,86 +5,168 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>Affable Test</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="affable.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+<head>
+    <title>Affable Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="affable.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.css" />
     <style>
-    /*.expand {
+
+        body {
+            font: 10px sans-serif;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .bar {
+            fill: orange;
+        }
+
+        .bar:hover {
+            fill: orangered ;
+        }
+
+        .x.axis path {
+            display: none;
+        }
+
+        .d3-tip {
+            line-height: 1;
+            font-weight: bold;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border-radius: 2px;
+        }
+
+        /* Creates a small triangle extender for the tooltip */
+        .d3-tip:after {
+            box-sizing: border-box;
+            display: inline;
+            font-size: 10px;
+            width: 100%;
+            line-height: 1;
+            color: rgba(0, 0, 0, 0.8);
+            content: "\25BC";
+            position: absolute;
+            text-align: center;
+        }
+
+        /* Style northward tooltips differently */
+        .d3-tip.n:after {
+            margin: -1px 0 0 0;
+            top: 100%;
+            left: 0;
+        }
+        svg {
+            background-color: antiquewhite;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+    </style>
+    <style>
+        /*.expand {
     width: 70%;
     padding: 3px;
 }*/
 
-.container-image {
-   position: relative;
-   width: 100%; /* for IE 6 */
-}
 
-.textoverimage {
-   position: absolute;
-   top: 70px;
-   left: 0;
-   width: 100%;
-}
 
-p.textoverimage {
+        .container-image {
+            position: relative;
+            width: 100%;
+            /* for IE 6 */
+        }
 
-font-size: 250%;
-font-weight: bold;
-color: yellow;
-}
+        .textoverimage {
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+        }
 
-.spacer
-{
-    width: 100%;
-    height: 180px;
-}
+        p.textoverimage {
+            font-size: 250%;
+            font-weight: bold;
+            color: yellow;
+        }
 
-#form-container{
-width: 500px;
+        .spacer {
+            width: 100%;
+            height: 180px;
+        }
+
+        #form-container {
+          display: block;
+              margin-left: auto;
+              margin-right: auto;
+            width: 500px;
+              display: flex;
+              align-items: center;
+              justify-content: center
+        }
+.bt{
+  display: block;
+width: 50px;
+display: flex;
+
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 5px;
+      align-items: center;
+      justify-content: center
+
 }
 
     </style>
-    </head>
-    <body>
+</head>
 
-      <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-      <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+<body>
+
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">Affable.js</a>
+        <a class="navbar-brand" href="#">Affable.js</a>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
-          </li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Help</a>
+                </li>
+            </ul>
 
-      </div>
+        </div>
     </nav>
 
 
 
-        <div class="spacer">
-            &nbsp;
-        </div>
+    <div class="spacer">
+        &nbsp;
+    </div>
 
 
-        <div style="width:800px; margin:0 auto;" id="form-container">
-          <form class="form-inline mt-2 mt-md-0">
+    <div style="width:800px; margin:0 auto;" id="form-container">
+        <form class="form-inline mt-2 mt-md-0">
             <input class="form-control mr-sm-2 expand" type="text" id="autocomplete" placeholder="Enter your address" onblur="getLatLong()" style="width:500px;">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="generate" class="generate" onclick="generate()">Search</button>
-          </form>
-      </div>
-      <div class="spacer">
-          &nbsp;
-      </div>
-        <div id="map"></div>
-        <!-- Replace the value of the key parameter with your own API key. -->
-        <section class=" row text-center placeholders">
+            <button class="btn btn-success my-2 my-sm-0" type="submit" id="generate" class="generate" onclick="generate()">Search</button>
+        </form>
+    </div>
+    <div class="spacer">
+        &nbsp;
+    </div>
+    <div id="map" hidden="hidden"></div>
+    <!-- Replace the value of the key parameter with your own API key. -->
+    <!-- <section class=" row text-center placeholders">
                     <div class="col-6 col-sm-3 placeholder" id="container-image">
                       <img src="data:image/gif;base64,R0lGODlhAQABAIABAAJ12AAAACwAAAAAAQABAAACAkQBADs=" width="200" height="200" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail" data-pin-nopin="true" id="image">
                       <p class="textoverimage">23</p>
@@ -112,19 +194,320 @@ width: 500px;
                       <h4>Groceries</h4>
                       <span class="text-muted">Something else</span>
                     </div>
-        </section>
+        </section> -->
 
-        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-        <script>
-        $('#autocomplete.expand').focus(function () {
-            $(this).animate({ width: "700px" }, 500);
+  <div class="card-deck container">
+  <div class="card">
+    <h4 class="card-title" style=" text-align:center" >School</h4>
+
+    <div class="card-block">
+        <p class="card-text" style="font-size:60pt; text-align:center" id="schoolValue">0</p>
+    </div>
+    <div>
+<div >
+<div >
+        <button type="button" class="btn btn-default btn-sm bt btn-success" id="upschool" onclick="upclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> Up
+  </button>
+</div>
+<div >
+        <button type="button" class="btn btn-default btn-sm bt btn-danger" id="downschool" onclick="downclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> down
+  </button>
+</div>
+    </div>
+</div>
+
+</div>
+
+
+    <div class="card">
+      <h4 class="card-title" style=" text-align:center" >Restaurant</h4>
+
+        <div class="card-block">
+            <p class="card-text" style="font-size:60pt; text-align:center" id="restaurantValue">0</p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-default btn-sm bt btn-success" id="uprestaurant" onclick="upclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> Up
+  </button>
+            <button type="button" class="btn btn-default btn-sm bt btn-danger" id="downrestaurant" onclick="downclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> down
+  </button>
+        </div>
+
+    </div>
+    <div class="card">
+      <h4 class="card-title" style=" text-align:center" >Grocery</h4>
+
+        <div class="card-block">
+            <p class="card-text" style="font-size:60pt; text-align:center" id="groceryValue">0</p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-default btn-sm bt btn-success" id="upgrocery" onclick="upclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> Up
+  </button>
+            <button type="button" class="btn btn-default btn-sm bt btn-danger" id="downgrocery" onclick="downclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> down
+  </button>
+        </div>
+
+    </div>
+    <div class="card">
+      <h4 class="card-title" style=" text-align:center" >Hospital</h4>
+
+        <div class="card-block">
+            <p class="card-text" style="font-size:60pt; text-align:center" id="hospitalValue">0</p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-default btn-sm bt btn-success" id="uphospital" onclick="upclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> Up
+  </button>
+            <button type="button" class="btn btn-default btn-sm bt btn-danger" id="downhospital" onclick="downclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> down
+  </button>
+        </div>
+
+    </div>
+    <div class="card">
+      <h4 class="card-title" style=" text-align:center" >Crime</h4>
+
+        <div class="card-block">
+            <p class="card-text" style="font-size:60pt; text-align:center" id="crimeValue">0</p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-default btn-sm bt btn-success" id="upcrime" onclick="upclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> Up
+  </button>
+            <button type="button" class="btn btn-default btn-sm bt btn-danger" id="downcrime" onclick="downclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> down
+  </button>
+        </div>
+
+    </div>
+    <div class="card">
+      <h4 class="card-title" style=" text-align:center" >Ariport</h4>
+
+        <div class="card-block">
+            <p class="card-text" style="font-size:60pt; text-align:center" id="airportValue">0</p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-default btn-sm bt btn-success" id="upairport" onclick="upclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> Up
+  </button>
+            <button type="button" class="btn btn-default btn-sm bt btn-danger" id="downairport" onclick="downclick(this.id)">
+    <span class="glyphicon glyphicon-arrow-up"></span> down
+  </button>
+        </div>
+
+    </div>
+
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script>
+        // With JQuery
+        $('#autocomplete.expand').focus(function() {
+            $(this).animate({
+                width: "700px"
+            }, 500);
         });
 
-        $('#autocomplete.expand').focusout(function () {
-            $(this).animate({ width: "500px" }, 500);
+        $('#autocomplete.expand').focusout(function() {
+            $(this).animate({
+                width: "500px"
+            }, 500);
         });
-        </script>
-    </body>
+        var max = 100;
+
+        function upclick(id) {
+            var prefix = id.toString().substring(2) + "Value";
+            var score = parseInt(document.getElementById(prefix).innerHTML);
+            console.log(max);
+            if (max <= 100 && max > 0 && score >= 0) {
+                score = score + 1;
+                max = max - 1;
+                document.getElementById(prefix).innerHTML = score;
+            }
+        }
+
+        function downclick(id) {
+            var prefix = id.toString().substring(4) + "Value";
+            var score = parseInt(document.getElementById(prefix).innerHTML);
+            console.log(score);
+            if (max < 100 && max >= 0 && score > 0) {
+                score = score - 1;
+                max = max + 1;
+                document.getElementById(prefix).innerHTML = score;
+            }
+        }
+    </script>
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script>
+
+        var margin = {top: 40, right: 20, bottom: 30, left: 40},
+            width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        var formatPercent = d3.format(".0%");
+
+        var xScale = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1);
+
+        var yScale = d3.scale.linear()
+            .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left");
+
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+                return "<strong>Score:</strong> <span style='color:red'>" + d.y + "</span>";
+            })
+
+
+        var svg = d3.select("#map").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        svg.call(tip);
+        var dict = new Object();
+        var arr = [];
+        var a = {name:"Balaji Restra"};
+        arr.push(a);
+        arr.push(a);
+        dict["restaurant"] = arr;
+        dict["school"] = arr;
+        dict["university"] = arr;
+        dict["hospital"] = arr;
+        dict["grocery"] = arr;
+        dict["airport"] = arr;
+        locationScore(dict);
+
+        var score;
+
+        function locationScore(location) {
+            var numberOfRestaurants = location["restaurant"].length;
+            var numberOfHospital = location["hospital"].length;
+            var numberOfUniversity = location["university"].length;
+            var numberOfSchools = location["university"].length;
+            var numberOfGrocery = location["university"].length;
+            var numberOfAirport = location["university"].length;
+            score = new Object();
+            appendScore(numberOfRestaurants,"restaurant");
+            appendScore(numberOfHospital,"hospital");
+            appendScore(numberOfUniversity,"university");
+            appendScore(numberOfSchools, "school");
+            appendScore(numberOfGrocery, "grocery");
+            appendScore(numberOfAirport, "airport");
+
+            var totalScore = score["restaurant"]+score["hospital"]+score["university"]+score["school"]+score["grocery"]+score["airport"];
+            totalScore = (totalScore * 100)/75;
+        }
+
+        function appendScore(number,scoreFor)
+        {
+            if (number<5)
+                score[scoreFor] = 3;
+            else if (number > 5 && number < 10)
+                score[scoreFor] = 4;
+            else {
+                score[scoreFor] = 5;
+            }
+        }
+
+
+        var data = [ {"x":"Restaurant","y":score["restaurant"]}, {"x":"Grocery","y":score["grocery"]}, {"x":"School","y":score["school"]}, {"x":"Crime","y":score["hospital"]},{"x":"University","y":score["university"]},{"x":"Airport","y":score["airport"]} ];
+
+        // Specify the domains of the x and y scales
+        xScale.domain(data.map(function(d) { return d.x; }) );
+        yScale.domain([0, 5]);
+
+        svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Score");
+
+
+            svg.selectAll(".bar")
+                .data(data)
+                .enter()
+                .append('rect')
+                .attr("class", "bar")
+                .attr("height", 0)
+                .attr("y", height)
+                .transition().duration(3000)
+                .delay( function(d,i) { return i * 400; })
+                .attr({
+                "x": function(d) { return xScale(d.x); },
+                "y": function(d) { return yScale(d.y); },
+                "width": xScale.rangeBand(),
+                "height": function(d) { return  height - yScale(d.y); }
+                });
+
+        svg.selectAll(".bartext")
+            .data(data)
+            .enter()
+            .append('text')
+            .text(function(d){
+                return "Score:" + d.y;
+            })
+            .attr({
+                "x": function(d){ return xScale(d.x) +  xScale.rangeBand()/2; },
+                "y": function(d){ return yScale(d.y)+ 12; },
+                "font-family": 'sans-serif',
+                "font-size": '13px',
+                "font-weight": 'bold',
+                "fill": 'black',
+                "text-anchor": 'middle'
+            });
+    //        svg.selectAll(".bar")
+    //            .data(data)
+    //            .enter().append("rect")
+    //            .attr("class", "bar")
+    //            .attr("x", function(d) { return xScale(d.x); })
+    //            .attr("width", xScale.rangeBand())
+    //            .attr("y", function(d) { return yScale(d.y); })
+    //            .attr("height", function(d) { return height - yScale(d.y); })
+    //            .on('mouseover', tip.show)
+    //            .on('mouseout', tip.hide);
+
+
+
+
+
+
+        function type(d) {
+            d.y = +d.y;
+            return d;
+        }
+
+    </script>
+
+
+</body>
+
 </html>
