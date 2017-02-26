@@ -62,11 +62,11 @@ Include the Js file in the application for usage.<br/>
 
 
 OTHER SOURCES OF DOCUMENTATION ------------------------<br/>
-[Named Link]https://developers.google.com/places/web-service/search
-[Named Link]https://sandbox.amadeus.com/travel-innovation-sandbox/apis/get/airports/nearest-relevant
+https://developers.google.com/places/web-service/search<br/>
+https://sandbox.amadeus.com/travel-innovation-sandbox/apis/get/airports/nearest-relevant
 
 
-Contributor Guide [LINK TO CONTRIBUTING.md]<br/>
+[Contributor Guide](./CONTRIBUTING.md)<br/>
 
 
 
