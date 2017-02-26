@@ -158,8 +158,15 @@ display: flex;
     <div class="spacer">
         &nbsp;
     </div>
-    <div id="map"></div>
+    <div id="map" hidden="hidden"></div>
+    <div style="width:800px; margin:0 auto; font-size:20pt; text-align:center" id="res">
+    </div>
 
+<br/>
+<br/>
+
+</br/>
+</br/>
   <div class="card-deck container">
   <div class="card">
     <h4 class="card-title" style=" text-align:center" >School</h4>
@@ -170,7 +177,7 @@ display: flex;
     <div>
 <div >
 <div >
-        <button type="button" class="btn btn-default btn-sm bt btn-success" id="upschool" onclick="upclick(this.id)">
+        <button type="button" class="btn btn-default btn-sm bt btn-success" id="upschool" onmouseover = "upclick(this.id)" onclick="upclick(this.id)">
     <span class="glyphicon glyphicon-arrow-up"></span> Up
   </button>
 </div>
@@ -221,7 +228,7 @@ display: flex;
       <h4 class="card-title" style=" text-align:center" >Hospital</h4>
 
         <div class="card-block">
-            <p class="card-text" style="font-size:60pt; text-align:center" id="hospitalValue">0</p>
+          <p class="card-text" style="font-size:60pt; text-align:center" id="hospitalValue">0</p>
         </div>
         <div>
             <button type="button" class="btn btn-default btn-sm bt btn-success" id="uphospital" onclick="upclick(this.id)">
@@ -250,7 +257,7 @@ display: flex;
 
     </div>
     <div class="card">
-      <h4 class="card-title" style=" text-align:center" >Ariport</h4>
+      <h4 class="card-title" style=" text-align:center" >Airport</h4>
 
         <div class="card-block">
             <p class="card-text" style="font-size:60pt; text-align:center" id="airportValue">0</p>
@@ -284,6 +291,7 @@ display: flex;
                 width: "500px"
             }, 500);
         });
+
         var max = 100;
 
         function upclick(id) {
@@ -308,8 +316,7 @@ display: flex;
             }
         }
     </script>
-
-    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <!-- <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script>
 
@@ -411,7 +418,7 @@ display: flex;
             return d;
         }
 
-    </script>
+    </script> -->
 
 
 </body>
