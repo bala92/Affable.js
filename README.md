@@ -16,10 +16,10 @@ Below are some of the cool features support by Affable.js library • Provides e
 
 [USAGE] ----------------------------------
 
-Below are the steps for using - 1) Include "<script src="public_html/affable.js"" type="text/javascript"> 2) There should be a div element -
+Below are the steps for using - 1) Include /"<script src="public_html/affable.js"" type="text/javascript">/" 2) There should be a div element -
 
-<div id="map" hidden="hidden">
-</div>
+/"<div id="map" hidden="hidden">
+</div>/"
 
  3) Include below div tags for getting the search bar -
 
