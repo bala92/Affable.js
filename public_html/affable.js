@@ -7,6 +7,7 @@ var map;
 var index = 0;
 var dict = {};
 var score;
+var airportScore = 0;
 var imported = document.createElement('script');
 imported.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDOWLpSeFnNSsjrsKqb0CQ6oNRsmFCUVqg&libraries=places&callback=initAutocomplete';
 document.head.appendChild(imported);
@@ -45,6 +46,7 @@ function getLatLong()
             initMap(myLat, myLng, 500, 'elementary school or high school');
             initMap(myLat, myLng, 500, 'hospital');
             initMap(myLat, myLng, 500, 'grocery store');
+            airportScore =  getAirports(myLat , myLng);
 
             index =0;
         } else {
@@ -127,8 +129,9 @@ function locationScore(dictObject) {
     getScore(dictObject,"school");
     getScore(dictObject,"hospital");
     getScore(dictObject, "grocery");
-    var totalScore = (score["restaurant"]* 0.20) + (score["school"]* 0.30) + (score["hospital"]* 0.30) + (score["grocery"]*0.20);
-    console.log("score is " + totalScore);
+    var totalScore = (score["restaurant"]* 0.20) + (score["school"]* 0.20) + (score["hospital"]* 0.20) + (score["grocery"]*0.20) + (airportScore * 0.20);
+    console.log("score for Airport " + airportScore);
+    console.log("Final Score" + totalScore);
 }
 
 function getScore(dictObject,scoreFor)
@@ -169,5 +172,30 @@ function getScore(dictObject,scoreFor)
         score[scoreFor] = (((total / 5 )* 0.6) + (((avg/(5)) * 0.4))) * 100  ;
     }
     console.log("Score for " + scoreFor +  score[scoreFor]);
+
+}
+
+function getAirports(myLat , myLng)
+{
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "http://api.sandbox.amadeus.com/v1.2/airports/nearest-relevant?latitude="+myLat+"&longitude="+myLng+"&apikey=2oxAh56O3TrgZdG50AS8Ftkv2b9sGAT7", false);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
+    var response = JSON.parse(xhttp.responseText);
+    var score = 0;
+    var distance = response[0].distance;
+    if(distance < 10)
+        score = 100;
+    else if(distance <20)
+        score = 90;
+    else if(distance < 40)
+        score = 80;
+    else if(distance < 80)
+        score = 60;
+    else
+        score = 40;
+
+    return score;
 
 }
