@@ -1,22 +1,32 @@
-# [Affable.js]
+#[Affable.js]
 
-Introduction-
+## Introduction- 
 
-Affable.js is a JavaScript library that helps you in determining the livability score of a neighborhood. Affable.js Livability Score is designed to help you find the best places to live. You can find the score of a neighborhood using this api. It is created using a unique ranking algorithm that considers characteristics like - 1) No of Hospitals around you. 2) No of School/Universities around you. 3) No of Restaurant around you.4) No of Airports around you. 5) Crime rate in the area.
+Affable.js is a JavaScript library that helps you in determining the livability score of a neighborhood. Affable.js Livability Score is designed to help you find the best places to live. You can find the score of a neighborhood using this api. 
+It is created using a unique ranking algorithm that considers characteristics like -<br /><br />
+1)	No of Hospitals around you. <br />
+2)	No of School/Universities around you.<br />
+3)	No of Restaurant around you.<br />4)	No of Airports around you.<br />
+5)	Crime rate in the area.<br />
 
-All these characteristics are giving a score from 100 based on the ranking algorithm. Livability score for the location is determined by the below equation –
+All these characteristics are giving a score from 100 based on the ranking algorithm. Livability score for the location is determined by the below equation – <br />
 
-Final Score = HS _HF + SS_ SF + RS _RF + AS_ AF + CS * CF;
+Final Score = HS * HF + SS * SF + RS * RF + AS * AF + CS * CF;<br />
 
-Where, HS = Hospital Score, HF = Hospital Factor, SS = Schooling Score, SF = Schooling Factor, RS = Restaurant Score, RF = Restaurant Factor, AS = Airport Score, AF = Airport Factor, CS = Crime Score, CF = Crime Factor.
+Where, 
+HS = Hospital Score, HF = Hospital Factor, SS = Schooling Score, SF = Schooling Factor, RS = Restaurant Score, RF = Restaurant Factor, AS = Airport Score, AF = Airport Factor, CS = Crime Score, CF = Crime Factor.<br/>
 
 Each Factor is configurable and can be provided by the user as input.
 
-Below are some of the cool features support by Affable.js library • Provides easy access to library function for retrieving details of places like Restaurant, Hospitals, Airports, Schools, Crime Rate along with the rating for each of them. • Provides integration with Google api and Amadeus api. • Provides a distance function for calculating distance between two geocoordinates.
+Below are some of the cool features support by Affable.js library 
+*	Provides easy access to library function for retrieving details of places like Restaurant, Hospitals, Airports, Schools, Crime Rate along with the rating for each of them. 
+*	Provides integration with Google api and Amadeus api. 
+*	Provides a distance function for calculating distance between two geocoordinates.
 
-[USAGE] ----------------------------------
 
-Below are the steps for using - 1) Include /"<script src="public_html/affable.js"" type="text/javascript">/" 2) There should be a div element -
+## USAGE
+
+Below are the steps for using - <br/>1) Include /"<script src="public_html/affable.js"" type="text/javascript">/" 2) There should be a div element -
 
 /"<div id="map" hidden="hidden">
 </div>/"
