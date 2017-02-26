@@ -152,13 +152,13 @@ display: flex;
     <div style="width:800px; margin:0 auto;" id="form-container">
         <form class="form-inline mt-2 mt-md-0">
             <input class="form-control mr-sm-2 expand" type="text" id="autocomplete" placeholder="Enter your address" onblur="getLatLong()" style="width:500px;">
-            <button class="btn btn-success my-2 my-sm-0" type="submit" id="generate" class="generate" onclick="generate()">Search</button>
+            <button class="btn btn-success my-2 my-sm-0" type="submit" id="generate" class="generate" onclick="generate1()">Search</button>
         </form>
     </div>
     <div class="spacer">
         &nbsp;
     </div>
-    <div id="map" hidden="hidden"></div>
+    <div id="map"></div>
 
   <div class="card-deck container">
   <div class="card">
@@ -348,50 +348,7 @@ display: flex;
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         svg.call(tip);
-        var dict = new Object();
-        var arr = [];
-        var a = {name:"Balaji Restra"};
-        arr.push(a);
-        arr.push(a);
-        dict["restaurant"] = arr;
-        dict["school"] = arr;
-        dict["university"] = arr;
-        dict["hospital"] = arr;
-        dict["grocery"] = arr;
-        dict["airport"] = arr;
-        locationScore(dict);
 
-        var score;
-
-        function locationScore(location) {
-            var numberOfRestaurants = location["restaurant"].length;
-            var numberOfHospital = location["hospital"].length;
-            var numberOfUniversity = location["university"].length;
-            var numberOfSchools = location["university"].length;
-            var numberOfGrocery = location["university"].length;
-            var numberOfAirport = location["university"].length;
-            score = new Object();
-            appendScore(numberOfRestaurants,"restaurant");
-            appendScore(numberOfHospital,"hospital");
-            appendScore(numberOfUniversity,"university");
-            appendScore(numberOfSchools, "school");
-            appendScore(numberOfGrocery, "grocery");
-            appendScore(numberOfAirport, "airport");
-
-            var totalScore = score["restaurant"]+score["hospital"]+score["university"]+score["school"]+score["grocery"]+score["airport"];
-            totalScore = (totalScore * 100)/75;
-        }
-
-        function appendScore(number,scoreFor)
-        {
-            if (number<5)
-                score[scoreFor] = 3;
-            else if (number > 5 && number < 10)
-                score[scoreFor] = 4;
-            else {
-                score[scoreFor] = 5;
-            }
-        }
 
 
         var data = [ {"x":"Restaurant","y":score["restaurant"]}, {"x":"Grocery","y":score["grocery"]}, {"x":"School","y":score["school"]}, {"x":"Crime","y":score["hospital"]},{"x":"University","y":score["university"]},{"x":"Airport","y":score["airport"]} ];
@@ -448,21 +405,6 @@ display: flex;
                 "fill": 'black',
                 "text-anchor": 'middle'
             });
-    //        svg.selectAll(".bar")
-    //            .data(data)
-    //            .enter().append("rect")
-    //            .attr("class", "bar")
-    //            .attr("x", function(d) { return xScale(d.x); })
-    //            .attr("width", xScale.rangeBand())
-    //            .attr("y", function(d) { return yScale(d.y); })
-    //            .attr("height", function(d) { return height - yScale(d.y); })
-    //            .on('mouseover', tip.show)
-    //            .on('mouseout', tip.hide);
-
-
-
-
-
 
         function type(d) {
             d.y = +d.y;
