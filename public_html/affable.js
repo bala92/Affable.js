@@ -227,7 +227,7 @@ function getAirports(myLat , myLng)
 {
 
     var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "http://api.sandbox.amadeus.com/v1.2/airports/nearest-relevant?latitude="+myLat+"&longitude="+myLng+"&apikey=2oxAh56O3TrgZdG50AS8Ftkv2b9sGAT7", false);
+    xhttp.open("GET", "http://api.sandbox.amadeus.com/v1.2/airports/nearest-relevant?latitude="+myLat+"&longitude="+myLng+"&apikey=YOUR_API_KEY", false);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
     var response = JSON.parse(xhttp.responseText);
